@@ -1,25 +1,46 @@
 #include <iostream>
 using namespace std;
 
-void boardDisplay(char board[3][3]) {
-    cout << "-------------------------\n";
-    for (int j = 0; j < 3; j++) {
-        for (int i = 0; i < 3; i++) {
-            cout << board[j][i] << "|\t";
+class Board {
+
+    private:
+        char board[3][3];
+
+    public: 
+        Board() {                               // constructor to initialize board
+            for (int j = 0; j < 3; j++) {
+                for (int i = 0; i < 3; i++) {
+                    board[j][i] = ' ';
+                }
+            }
         }
-        cout << "|";
-        cout << "\n";
-        cout << "-------------------------\n";
-    }
-}
+
+        void boardDisplay() {
+            cout << "-------------------------\n";
+            for (int j = 0; j < 3; j++) {
+                for (int i = 0; i < 3; i++) {
+                    cout << board[j][i] << "|\t";
+                }
+                cout << "|\n";
+                cout << "-------------------------\n";
+            }
+        }
+
+        char getTile(int row, int col) {
+            return board[row][col];
+        }
+
+
+        void setTile(int row, int col, char value) {
+            board[row][col] = value;
+        }
+};
 
 
 int main(){
-    char board[3][3] = { { ' ', ' ', ' ' }, 
-                         { ' ', ' ', ' ' }, 
-                         { ' ', ' ', ' ' } };
+    Board board;
 
-    boardDisplay(board);
+    board.boardDisplay();
     return 0;
 }
 

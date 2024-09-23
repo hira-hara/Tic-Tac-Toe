@@ -34,6 +34,8 @@ class Board {
         void setTile(int row, int col, char value) {
             board[row][col] = value;
         }
+
+        // TO ADD, AT FIRST PUT THE BOARD TILE NUMBERS SO THE PLAYERS CAN KNOW WHICH TILE TO CHOOSE
 };
 
 

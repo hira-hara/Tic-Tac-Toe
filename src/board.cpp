@@ -37,10 +37,3 @@ class Board {
 };
 
 
-int main(){
-    Board board;
-
-    board.boardDisplay();
-    return 0;
-}
-

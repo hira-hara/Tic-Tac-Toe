@@ -16,13 +16,13 @@ class Board {
         }
 
         void boardDisplay() {
-            cout << "-------------------------\n";
+            cout << "-------------\n";
             for (int j = 0; j < 3; j++) {
+                cout << "| ";
                 for (int i = 0; i < 3; i++) {
-                    cout << board[j][i] << "|\t";
+                    cout << board[j][i] << " | ";
                 }
-                cout << "|\n";
-                cout << "-------------------------\n";
+                cout << "\n-------------\n";
             }
         }
 
@@ -33,6 +33,17 @@ class Board {
 
         void setTile(int row, int col, char value) {
             board[row][col] = value;
+        }
+
+        bool checkBoardFull() {
+            for (int j = 0; j < 3; j++) {
+                for (int i = 0; i < 3; i++) {
+                    if (getTile(j, i) != ' ') {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         // TO ADD, AT FIRST PUT THE BOARD TILE NUMBERS SO THE PLAYERS CAN KNOW WHICH TILE TO CHOOSE

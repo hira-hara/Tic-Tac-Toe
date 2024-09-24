@@ -12,6 +12,8 @@ class gamePlay: public Board  {
         string player2;
         char player1Symbol;
         char player2Symbol;
+        int moves = 0;
+        string turn;            // needed for knowing which symbol to use
         Board board;            // Is this correct to use? 
         
 
@@ -19,9 +21,9 @@ class gamePlay: public Board  {
         std::string starter;
     
         void introGame() {
-            cout << "-------------------------------------------";
-            cout << "WELCOME TO THE TIC-TAC-TOE GAME MADE BY IDA SU OZDEMIR :>";
-            cout << "-------------------------------------------\n";
+            cout << "---------------------------------------------------------\n";
+            cout << "WELCOME TO THE TIC-TAC-TOE GAME MADE BY IDA SU OZDEMIR :>\n";
+            cout << "---------------------------------------------------------\n";
 
             cout << "You are player1, please enter your name: ";
             cin >> player1;
@@ -48,6 +50,8 @@ class gamePlay: public Board  {
 
                 cout << player1 << " you will get X as your symbol.\n";
                 cout << player2 << " you will get O as your symbol.\n";
+
+                turn = player1;
                 
             } else {
                 player1Symbol = 'O';
@@ -55,6 +59,8 @@ class gamePlay: public Board  {
 
                 cout << player1 << " you will get O as your symbol.\n";
                 cout << player2 << " you will get X as your symbol.\n";
+
+                turn = player2;
             }
 
             cout << "\n";
@@ -63,16 +69,50 @@ class gamePlay: public Board  {
             cout << "Whoever has the X will start first, so " << starter << "\n";
         }
 
-        void playerMoves() {
-            vector<int> tileChosenL (2);
-            int tile;
-            
 
-            cout << starter << " what is your move (enter board tile rowcolumn): \n";
+        void playerMove() {          // when player move is called, after another function must switch the turn of the players
+            vector<int> tileChosenL (2);                // In order to save the tile in a sort of list where the indexes can be accessed
+            int tile;
+
+            cout << turn << " what is your move (enter board tile rowcolumn): \n";
             cin >> tile;
             tileChosenL[0] = tile / 10;
             tileChosenL[1] = tile % 10;
+
+            if (turn == player1) {
+                moveOnBoard(tileChosenL, board, player1Symbol);
+            } else {
+                moveOnBoard(tileChosenL, board, player2Symbol);
+            }
         }
+
+        void moveOnBoard(vector<int> move, Board board, char value) {
+            // Should display the board when moved
+            moves += 1;
+            board.setTile(move[0], move[1], value);
+            board.boardDisplay();
+        }
+
+        void swapPlayer(string turn) {
+            if (turn == player1) {
+                turn = player2;
+            } else {
+                turn  = player1;
+            }
+        }
+
+
+        void gameLogic() {
+            while (moves < 5) {
+                playerMove();
+                swapPlayer(turn);
+                }
+        }
+            // while (checkBoardFull == false) {
+            //     //play (1st), play, play, play (4th), play (5th), check 
+                
+            // }
+            // when its out of the loop without any wins then automatic tie
 };
 
 
@@ -83,7 +123,7 @@ int main(){
     game.introGame();
     game.randomChooser();
     board.boardDisplay();
-    game.playerMoves();
+    game.gameLogic();
     return 0;
 }
 

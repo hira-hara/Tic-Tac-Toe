@@ -86,14 +86,14 @@ class gamePlay: public Board  {
             }
         }
 
-        void moveOnBoard(vector<int> move, Board board, char value) {
+        void moveOnBoard(vector<int> move, Board& board, char value) { // we're passing board as a reference
             // Should display the board when moved
             moves += 1;
             board.setTile(move[0], move[1], value);
             board.boardDisplay();
         }
 
-        void swapPlayer(string turn) {
+        void swapPlayer() {
             if (turn == player1) {
                 turn = player2;
             } else {
@@ -105,9 +105,9 @@ class gamePlay: public Board  {
         void gameLogic() {
             while (moves < 5) {
                 playerMove();
-                swapPlayer(turn);
+                swapPlayer();
                 }
-        }
+        }       // NOW ADD THE REAL LOGIC WHERE YOU CHECK IF ANYONES WINNING OR TIE
             // while (checkBoardFull == false) {
             //     //play (1st), play, play, play (4th), play (5th), check 
                 

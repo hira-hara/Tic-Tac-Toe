@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.5.0)
-project(Tic-Tac-Toe VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.5)
+project(TicTacToe)
 
-add_executable(Tic-Tac-Toe board.cpp)
+set(CMAKE_CXX_STANDARD 11)
+add_executable(TicTacToe src/board.cpp src/gamePlay.cpp)
 

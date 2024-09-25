@@ -13,8 +13,8 @@ class gamePlay: public Board  {
         char player1Symbol;
         char player2Symbol;
         int moves = 0;
-        string turn;            // needed for knowing which symbol to use
-        Board board;            // Is this correct to use? 
+        string turn;            
+        Board board;           
         
 
     public:
@@ -101,18 +101,72 @@ class gamePlay: public Board  {
             }
         }
 
+        bool checkWin() {
+            for (int i = 0; i < 3; i++) {
+                if (board.getTile(i, 0) == board.getTile(i, 1) && 
+                    board.getTile(i, 1) == board.getTile(i, 2) && 
+                    board.getTile(i, 0) != ' ') return true;
+
+                if (board.getTile(0, i) == board.getTile(1, i) &&
+                    board.getTile(1, i) == board.getTile(2, i) &&
+                    board.getTile(0, i) != ' ') return true;
+            }
+
+            if (board.getTile(0, 0) == board.getTile(1, 1) && 
+                board.getTile(1, 1) == board.getTile(2, 2) && 
+                board.getTile(0, 0) != ' ') return true;
+
+            if (board.getTile(0, 2) == board.getTile(1, 1) && 
+                board.getTile(1, 1) == board.getTile(2, 0) && 
+                board.getTile(0, 2) != ' ') return true;
+
+            return false;
+        }
+
+        void reMatch() {
+            moves = 0;
+            board = Board();
+        }
+
+        bool askForRematch() {
+            char response;
+            cout << "Would the other player like to take revenge? (y/n): ";
+            cin >> response;
+
+            return (response == 'y' || response == 'Y');
+
+        }
+
 
         void gameLogic() {
-            while (moves < 5) {
-                playerMove();
-                swapPlayer();
+            do {
+                while (true) {
+                    playerMove();
+
+                    if (moves >= 5 && checkWin()) {
+                        cout << turn << " wins!\n";
+                        break;
+                    }
+
+                    if (moves == 9) {
+                        cout << "It's a tie!\n";
+                        break;
+                    }
+
+                    swapPlayer();
                 }
-        }       // NOW ADD THE REAL LOGIC WHERE YOU CHECK IF ANYONES WINNING OR TIE
-            // while (checkBoardFull == false) {
-            //     //play (1st), play, play, play (4th), play (5th), check 
-                
-            // }
-            // when its out of the loop without any wins then automatic tie
+
+                if (askForRematch()) {
+                    reMatch();
+                    cout << "Revenge loading...\n";
+                    randomChooser(); 
+                    board.boardDisplay();  
+                } else {
+                    break;
+                }
+            } while (true);
+
+        }       
 };
 
 

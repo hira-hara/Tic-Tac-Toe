@@ -13,8 +13,8 @@ class gamePlay: public Board  {
         char player1Symbol;
         char player2Symbol;
         int moves = 0;
-        string turn;            // needed for knowing which symbol to use
-        Board board;            // Is this correct to use? 
+        string turn;            
+        Board board;           
         
 
     public:
@@ -86,14 +86,14 @@ class gamePlay: public Board  {
             }
         }
 
-        void moveOnBoard(vector<int> move, Board board, char value) {
+        void moveOnBoard(vector<int> move, Board& board, char value) { // we're passing board as a reference
             // Should display the board when moved
             moves += 1;
             board.setTile(move[0], move[1], value);
             board.boardDisplay();
         }
 
-        void swapPlayer(string turn) {
+        void swapPlayer() {
             if (turn == player1) {
                 turn = player2;
             } else {
@@ -101,18 +101,72 @@ class gamePlay: public Board  {
             }
         }
 
+        bool checkWin() {
+            for (int i = 0; i < 3; i++) {
+                if (board.getTile(i, 0) == board.getTile(i, 1) && 
+                    board.getTile(i, 1) == board.getTile(i, 2) && 
+                    board.getTile(i, 0) != ' ') return true;
+
+                if (board.getTile(0, i) == board.getTile(1, i) &&
+                    board.getTile(1, i) == board.getTile(2, i) &&
+                    board.getTile(0, i) != ' ') return true;
+            }
+
+            if (board.getTile(0, 0) == board.getTile(1, 1) && 
+                board.getTile(1, 1) == board.getTile(2, 2) && 
+                board.getTile(0, 0) != ' ') return true;
+
+            if (board.getTile(0, 2) == board.getTile(1, 1) && 
+                board.getTile(1, 1) == board.getTile(2, 0) && 
+                board.getTile(0, 2) != ' ') return true;
+
+            return false;
+        }
+
+        void reMatch() {
+            moves = 0;
+            board = Board();
+        }
+
+        bool askForRematch() {
+            char response;
+            cout << "Would the other player like to take revenge? (y/n): ";
+            cin >> response;
+
+            return (response == 'y' || response == 'Y');
+
+        }
+
 
         void gameLogic() {
-            while (moves < 5) {
-                playerMove();
-                swapPlayer(turn);
+            do {
+                while (true) {
+                    playerMove();
+
+                    if (moves >= 5 && checkWin()) {
+                        cout << turn << " wins!\n";
+                        break;
+                    }
+
+                    if (moves == 9) {
+                        cout << "It's a tie!\n";
+                        break;
+                    }
+
+                    swapPlayer();
                 }
-        }
-            // while (checkBoardFull == false) {
-            //     //play (1st), play, play, play (4th), play (5th), check 
-                
-            // }
-            // when its out of the loop without any wins then automatic tie
+
+                if (askForRematch()) {
+                    reMatch();
+                    cout << "Revenge loading...\n";
+                    randomChooser(); 
+                    board.boardDisplay();  
+                } else {
+                    break;
+                }
+            } while (true);
+
+        }       
 };
 
 

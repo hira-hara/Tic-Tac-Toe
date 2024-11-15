@@ -1,5 +1,8 @@
 # Tic-Tac-Toe
 
+### Hello There!
+- I wanted to learn C++ so I said why not start like this 🖥️!
+
 ## Planning
 - Learned C++ during Summer 2024
 - Planned game on paper and design

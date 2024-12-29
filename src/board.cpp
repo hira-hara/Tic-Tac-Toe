@@ -46,7 +46,6 @@ class Board {
             return false;
         }
 
-        // TO ADD, AT FIRST PUT THE BOARD TILE NUMBERS SO THE PLAYERS CAN KNOW WHICH TILE TO CHOOSE
 };
 
 

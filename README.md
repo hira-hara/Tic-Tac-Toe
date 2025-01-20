@@ -10,6 +10,8 @@
 - Used knowledge of OOP and COMP303 (Design Patterns) in order to make a encapsulated game
 
 ## How to Play
+- Clone the repository and make sure you have cpp compiler
+- Run the code and start!
 - Have two players enter name
 - Symbols (X and O) will be chosen randomly and X will start
 
